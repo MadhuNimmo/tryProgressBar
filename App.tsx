@@ -20,8 +20,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import * as Progress from 'react-native-progress';
-
 function Section({ children, title }: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
@@ -108,9 +106,7 @@ function App(): JSX.Element {
             onPress={handleButtonPress}
             disabled={loading}
           />
-          {loading && (
-            <Progress.Bar indeterminate={true} width={200} color={isDarkMode ? 'white' : 'black'} />
-          )}
+          {loading && <ActivityIndicator size="large" color={isDarkMode ? 'white' : 'black'} />}
           {error && <Text>Error: {error}</Text>}
           {apiData && <Text>API Data: {JSON.stringify(apiData)}</Text>}
         </View>
