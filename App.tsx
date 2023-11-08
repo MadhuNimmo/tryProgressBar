@@ -51,7 +51,6 @@ function Section({ children, title }: SectionProps): JSX.Element {
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const [loading, setLoading] = useState(false);
   const [apiData, setApiData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -60,8 +59,6 @@ function App(): JSX.Element {
   };
 
   const handleButtonPress = () => {
-    // Show the loading indicator
-    setLoading(true);
 
     // Make an API call (replace with your API endpoint)
     // Make an API call
@@ -73,15 +70,11 @@ function App(): JSX.Element {
         return response.json();
       })
       .then((data) => {
-        // Hide the loading indicator
-        setLoading(false);
-        console.log(data)
         // Set the API data in the state
         setApiData(data);
       })
       .catch((err) => {
-        // Hide the loading indicator and handle the error
-        setLoading(false);
+        // Handle the error
         setError(err.message);
       });
   };
@@ -106,11 +99,7 @@ function App(): JSX.Element {
           <Button
             title="Start Functionality"
             onPress={handleButtonPress}
-            disabled={loading}
           />
-          {loading && (
-            <Progress.Bar indeterminate={true} width={200} color={isDarkMode ? 'white' : 'black'} />
-          )}
           {error && <Text>Error: {error}</Text>}
           {apiData && <Text>API Data: {JSON.stringify(apiData)}</Text>}
         </View>
